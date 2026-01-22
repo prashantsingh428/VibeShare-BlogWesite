@@ -24,6 +24,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Database Connection
+console.log("DEBUG: Checking Env Vars...");
+console.log("MONGO_URI exists:", !!process.env.MONGO_URI);
+console.log("CLOUDINARY_CLOUD_NAME exists:", !!process.env.CLOUDINARY_CLOUD_NAME);
+
+if (!process.env.MONGO_URI) {
+    console.error("CRITICAL ERROR: MONGO_URI is missing! The app cannot connect to the database.");
+}
+
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("Connected to MongoDB"))
     .catch((err) => console.error("Error connecting to MongoDB:", err));
