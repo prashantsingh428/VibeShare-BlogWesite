@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-zinc-900 text-white min-h-screen flex items-center justify-center">
+
+<div class="w-full max-w-md bg-zinc-800 border border-zinc-700 rounded-2xl p-6 shadow-lg">
+
+    <!-- Header -->
+    <div class="mb-6 text-center">
+        <h2 class="text-2xl font-semibold">Upload Image</h2>
+        <p class="text-sm text-zinc-400 mt-1">
+            Upload a profile or post image
+        </p>
+    </div>
+
+    <!-- Upload Form -->
+    <form action="/upload" method="POST" enctype="multipart/form-data" class="space-y-5">
+
+        <!-- File Picker -->
+        <label
+            for="image"
+            class="flex flex-col items-center justify-center w-full h-44 border-2 border-dashed border-zinc-600 rounded-xl cursor-pointer hover:border-blue-500 transition"
+        >
+            <div class="flex flex-col items-center text-center">
+                <svg class="w-10 h-10 text-zinc-400 mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3 16.5V19a2 2 0 002 2h14a2 2 0 002-2v-2.5M7 10l5-5 5 5M12 5v14"/>
+                </svg>
+                <p class="text-sm text-zinc-300">
+                    Click to upload or drag & drop
+                </p>
+                <p class="text-xs text-zinc-500 mt-1">
+                    PNG, JPG, JPEG (Max 2MB)
+                </p>
+            </div>
+
+            <input
+                id="image"
+                name="image"
+                type="file"
+                accept="image/*"
+                required
+                class="hidden"
+            />
+        </label>
+
+        <!-- Preview -->
+        <div id="previewBox" class="hidden">
+            <p class="text-sm text-zinc-400 mb-2">Preview</p>
+            <img id="previewImage" class="w-full h-40 object-cover rounded-lg border border-zinc-700">
+        </div>
+
+        <!-- Submit -->
+        <button
+            type="submit"
+            class="w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-700 font-medium transition"
+        >
+            Upload Image
+        </button>
+
+        <!-- Back link -->
+        <a
+            href="/profile"
+            class="block text-center text-sm text-zinc-400 hover:text-white transition"
+        >
+            ← Back to Profile
+        </a>
+
+    </form>
+
+</div>
+
+<!-- Image Preview Script -->
+<script>
+    const input = document.getElementById("image");
+    const previewBox = document.getElementById("previewBox");
+    const previewImage = document.getElementById("previewImage");
+
+    input.addEventListener("change", function () {
+        const file = this.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            previewImage.src = reader.result;
+            previewBox.classList.remove("hidden");
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+
+</body>
+</html>

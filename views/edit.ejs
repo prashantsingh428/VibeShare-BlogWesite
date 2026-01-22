@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 text-zinc-800 flex items-center justify-center">
+
+    <!-- Edit Card -->
+    <div class="w-full max-w-2xl bg-white border border-zinc-200 rounded-2xl shadow-xl p-8">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold">
+                Edit your post ✏️
+            </h2>
+
+            <a
+                href="/profile"
+                class="text-sm text-blue-600 hover:underline"
+            >
+                ← Back to Profile
+            </a>
+        </div>
+
+        <p class="text-sm text-zinc-500 mb-4">
+            Make changes to your post and save when you’re done.
+        </p>
+
+        <!-- Edit Form -->
+        <form method="post" action="/update/<%= post._id %>" class="space-y-4">
+
+            <textarea
+                name="content"
+                rows="6"
+                required
+                class="w-full p-4 rounded-xl border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 resize-none"
+                placeholder="What's new on your mind?"
+            ><%= post.content %></textarea>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+
+                <button
+                    type="submit"
+                    class="px-6 py-2 rounded-xl bg-yellow-500 text-black font-semibold hover:bg-yellow-600 transition shadow"
+                >
+                    Update Post
+                </button>
+
+                <a
+                    href="/profile"
+                    class="px-6 py-2 rounded-xl border border-zinc-300 text-zinc-600 hover:bg-zinc-100 transition"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

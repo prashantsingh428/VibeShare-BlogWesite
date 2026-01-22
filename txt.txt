@@ -1,0 +1,86 @@
+// const bcrypt = require("bcrypt");
+// const jwt = require("jsonwebtoken");
+// const userModel = require('./models/user');
+// const postModel = require('./models/post');
+
+
+
+// app.post('/register', async (req, res) => {
+//     let { email, password, username, name, age } = req.body;
+
+//     let user = await userModel.findOne({ email });
+//     if (user) return res.status(500).send("User already registered");
+
+//     bcrypt.genSalt(10, (err, salt) => {      // ✅ FIXED
+//         bcrypt.hash(password, salt, async (err, hash) => {
+//             let user = await userModel.create({
+//                 username,
+//                 email,
+//                 age,
+//                 name,
+//                 password: hash
+//             });
+
+//             let token = jwt.sign({email: email , userid: user._id ,} , "suuu");
+//             res.cookie("token" , token);
+//             res.send("registered");
+//         });
+//     });
+// });
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="w-full min-h-screen bg-zinc-900 text-white p-10">
+        <h3 class=" text-3xl mb-5"> Create Account </h3>
+        <form action="/register" method="post">
+            <input class="px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800" type="text" placeholder="name" name="name">
+            <input class="px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800" type="text" placeholder="username" name="username">
+            <input class="px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800" type="text" placeholder="Email" name="email">
+            <input class="px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800" type="text" placeholder="Password" name="password">
+            <input class="px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800" type="text" placeholder="age" name="age">
+            <button class="px-3 py-2 rounded-md bg-blue-600 hover:bg-blue-700 transition-all duration-200" type="submit"> Create Account </button>
+        </form>
+    </div>
+</body>
+</html
+
+
+
+
+
+
+// const mongoose = require("mongoose");
+
+// const postSchema = new mongoose.Schema({
+//     user: {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: "User"   // ✅ correct model name
+//     },
+
+//     date: {
+//         type: Date,   // ✅ fixed
+//         default: Date.now
+//     },
+
+//     content: String,
+
+//     likes: [
+//         {
+//             type: mongoose.Schema.Types.ObjectId,
+//             ref: "User"   // ✅ correct
+//         }
+//     ]
+// });
+
+// module.exports = mongoose.model("Post", postSchema);

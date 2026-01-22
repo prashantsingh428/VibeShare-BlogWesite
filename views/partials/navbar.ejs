@@ -1,0 +1,56 @@
+<nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+
+            <!-- Logo -->
+            <a href="/" class="flex items-center gap-2 group">
+                <div
+                    class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xl font-bold shadow-md group-hover:scale-110 transition-transform duration-300">
+                    <i class="ri-pulse-line"></i>
+                </div>
+                <span
+                    class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+                    VibeShare
+                </span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="/" class="text-slate-600 text-sm font-medium hover:text-indigo-600 transition-colors">Home</a>
+                <a href="/about"
+                    class="text-slate-600 text-sm font-medium hover:text-indigo-600 transition-colors">About Us</a>
+
+                <!-- If we are on pages that imply logged in (like profile), show Logout, otherwise show Login/Register -->
+                <!-- Ideally this should be dynamic based on a 'user' variable passed to locals -->
+
+                <a href="/profile"
+                    class="text-slate-600 text-sm font-medium hover:text-indigo-600 transition-colors">Profile</a>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="hidden md:block">
+                <% if (user) { %>
+                    <a href="/logout"
+                        class="px-5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 transition shadow-lg">
+                        Logout
+                    </a>
+                    <% } else { %>
+                        <a href="/login"
+                            class="px-5 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">
+                            Get Started
+                        </a>
+                        <% } %>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <button class="text-slate-600 hover:text-indigo-600 focus:outline-none">
+                    <i class="ri-menu-4-line text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Spacer to prevent content from hiding behind fixed nav -->
+<div class="h-20"></div>
