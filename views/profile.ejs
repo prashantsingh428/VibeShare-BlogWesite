@@ -28,7 +28,7 @@
                         <div class="relative group z-10">
                             <div
                                 class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl bg-white">
-                                <img src="/images/uploads/<%= user.profilepic || 'default.png' %>"
+                                <img src="<%= (user.profilepic && user.profilepic.startsWith('http')) ? user.profilepic : '/images/uploads/' + (user.profilepic || 'default.png') %>"
                                     class="w-full h-full object-cover transition duration-300 group-hover:scale-110"
                                     alt="Profile">
                             </div>
@@ -198,7 +198,7 @@
                                                     <% if (post.images.length === 3 && index === 0) { %> row-span-2 <% } %>
                                                     group
                                                 ">
-                                                    <img src="/images/uploads/<%= img %>"
+                                                    <img src="<%= img.startsWith('http') ? img : '/images/uploads/' + img %>"
                                                         class="w-full h-full object-cover group-hover:scale-110 transition duration-700"
                                                         loading="lazy">
 
@@ -218,7 +218,7 @@
                                             <!-- Fallback for old posts -->
                                             <div
                                                 class="w-full h-96 mb-4 rounded-xl overflow-hidden shadow-sm border border-slate-100 relative bg-slate-50">
-                                                <img src="/images/uploads/<%= post.image %>"
+                                                <img src="<%= post.image.startsWith('http') ? post.image : '/images/uploads/' + post.image %>"
                                                     class="w-full h-full object-cover hover:scale-105 transition duration-500"
                                                     loading="lazy">
                                             </div>

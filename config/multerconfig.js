@@ -1,22 +1,20 @@
 const multer = require("multer");
-const crypto = require("crypto");
-const path = require("path");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("cloudinary").v2;
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "./public/images/uploads");
-    },
-    filename: function (req, file, cb) {
-        crypto.randomBytes(12, (err, bytes) => {
-            if (err) return cb(err);
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
-            const filename =
-                bytes.toString("hex") + path.extname(file.originalname);
-
-            cb(null, filename);
-        });
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "vibeshare_uploads",
+        allowed_formats: ["jpg", "png", "jpeg", "webp"]
     }
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage: storage });
 module.exports = upload;

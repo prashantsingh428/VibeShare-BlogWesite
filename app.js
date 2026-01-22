@@ -80,7 +80,7 @@ app.post(
             return res.redirect("/login");
         }
 
-        user.profilepic = req.file.filename;
+        user.profilepic = req.file.path;
         await user.save();
 
         res.redirect("/profile");
@@ -172,10 +172,10 @@ app.post("/post", isLoggedIn, upload.array("images", 6), async (req, res) => {
 
     const user = await userModel.findOne({ email: req.user.email });
 
-    // Collect filenames
+    // Collect file URLs (Cloudinary returns 'path')
     let imageFiles = [];
     if (req.files && req.files.length > 0) {
-        imageFiles = req.files.map(file => file.filename);
+        imageFiles = req.files.map(file => file.path);
     }
 
     const postData = {
