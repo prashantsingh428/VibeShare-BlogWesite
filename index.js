@@ -20,9 +20,6 @@ const upload = require("./config/multerconfig");
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
 // Database Connection
 console.log("DEBUG: Checking Env Vars...");
 console.log("MONGO_URI exists:", !!process.env.MONGO_URI);
@@ -32,11 +29,20 @@ if (!process.env.MONGO_URI) {
     console.error("CRITICAL ERROR: MONGO_URI is missing! The app cannot connect to the database.");
 }
 
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("Connected to MongoDB"))
-    .catch((err) => console.error("Error connecting to MongoDB:", err));
+const PORT = process.env.PORT || 3000;
 
-// Global Auth Middleware
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log("Connected to MongoDB");
+        // Only start server after DB connection
+        app.listen(PORT, () => {
+            console.log(`Live server running on ${PORT} 🍌`);
+        });
+    })
+    .catch((err) => {
+        console.error("Error connecting to MongoDB:", err);
+        process.exit(1); // Exit if DB fails
+    });
 app.use(async (req, res, next) => {
     const token = req.cookies.token;
     if (token) {
@@ -284,8 +290,4 @@ function isLoggedIn(req, res, next) {
 }
 
 
-/* ===================== SERVER ===================== */
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Live server running on ${PORT} 🍌`);
-});
+
