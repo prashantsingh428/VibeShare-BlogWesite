@@ -2,6 +2,11 @@ node_modules/
 .env
 .DS_Store
 
-# Ignore uploaded images but keep the directory and default image
+# Ignore uploaded images
 public/images/uploads/*
+
+# Keep default image
 !public/images/uploads/default.png
+
+# Keep the uploads directory itself
+!public/images/uploads/.gitkeep
