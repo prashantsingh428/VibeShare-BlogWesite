@@ -20,6 +20,7 @@ const upload = require("./config/multerconfig");
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 // Database Connection
 console.log("DEBUG: Checking Env Vars...");
 console.log("MONGO_URI exists:", !!process.env.MONGO_URI);
@@ -44,7 +45,7 @@ mongoose.connect(process.env.MONGO_URI)
         process.exit(1); // Exit if DB fails
     });
 app.use(async (req, res, next) => {
-    const token = req.cookies.token;
+    const token = req.cookies?.token;
     if (token) {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -57,6 +58,12 @@ app.use(async (req, res, next) => {
         res.locals.user = null;
     }
     next();
+});
+
+
+/* ===================== HEALTH CHECK ===================== */
+app.get("/health", (req, res) => {
+    res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 
@@ -169,6 +176,65 @@ app.get("/profile", isLoggedIn, async (req, res) => {
     }
 
     res.render("profile", { user });
+});
+
+// Edit Profile Page
+app.get("/profile/edit", isLoggedIn, async (req, res) => {
+    const user = await userModel.findOne({ email: req.user.email });
+
+    if (!user) {
+        res.clearCookie("token");
+        return res.redirect("/login");
+    }
+
+    res.render("editprofile", { user, error: null, success: null });
+});
+
+// Update Profile
+app.post("/profile/update", isLoggedIn, async (req, res) => {
+    const { name, username, age } = req.body;
+
+    try {
+        const user = await userModel.findOne({ email: req.user.email });
+
+        if (!user) {
+            res.clearCookie("token");
+            return res.redirect("/login");
+        }
+
+        // Check if username is taken by another user
+        if (username && username !== user.username) {
+            const existingUser = await userModel.findOne({
+                username: username,
+                _id: { $ne: user._id }
+            });
+
+            if (existingUser) {
+                return res.render("editprofile", {
+                    user,
+                    error: "Username is already taken",
+                    success: null
+                });
+            }
+        }
+
+        // Update user fields
+        user.name = name || user.name;
+        user.username = username || user.username;
+        user.age = age ? parseInt(age) : user.age;
+
+        await user.save();
+
+        res.redirect("/profile");
+    } catch (err) {
+        console.error("Profile update error:", err);
+        const user = await userModel.findOne({ email: req.user.email });
+        res.render("editprofile", {
+            user,
+            error: "Failed to update profile. Please try again.",
+            success: null
+        });
+    }
 });
 
 
