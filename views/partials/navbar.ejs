@@ -1,56 +1,138 @@
-<nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+<nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-20">
+        <div class="flex items-center justify-between h-16">
 
             <!-- Logo -->
             <a href="/" class="flex items-center gap-2 group">
-                <div
-                    class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xl font-bold shadow-md group-hover:scale-110 transition-transform duration-300">
-                    <i class="ri-pulse-line"></i>
+                <div class="w-9 h-9 rounded-lg bg-[#4a5d4a] flex items-center justify-center text-white">
+                    <i class="ri-leaf-line text-lg"></i>
                 </div>
-                <span
-                    class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+                <span class="text-lg font-semibold text-slate-800">
                     VibeShare
                 </span>
             </a>
 
+            <!-- Center Search Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-md mx-8">
+                <div class="relative w-full">
+                    <input type="text" placeholder="Search..."
+                        class="w-full bg-slate-50 border border-slate-200 rounded-full px-5 py-2.5 text-sm placeholder-slate-400 focus:outline-none focus:border-slate-300 focus:ring-2 focus:ring-slate-100 transition">
+                    <button
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition">
+                        <i class="ri-search-line"></i>
+                    </button>
+                </div>
+            </div>
+
             <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center gap-8">
-                <a href="/" class="text-slate-600 text-sm font-medium hover:text-indigo-600 transition-colors">Home</a>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="/" class="text-slate-500 text-sm font-medium hover:text-slate-800 transition-colors">Home</a>
                 <a href="/about"
-                    class="text-slate-600 text-sm font-medium hover:text-indigo-600 transition-colors">About Us</a>
-
-                <!-- If we are on pages that imply logged in (like profile), show Logout, otherwise show Login/Register -->
-                <!-- Ideally this should be dynamic based on a 'user' variable passed to locals -->
-
+                    class="text-slate-500 text-sm font-medium hover:text-slate-800 transition-colors">About</a>
                 <a href="/profile"
-                    class="text-slate-600 text-sm font-medium hover:text-indigo-600 transition-colors">Profile</a>
+                    class="text-slate-500 text-sm font-medium hover:text-slate-800 transition-colors">Profile</a>
             </div>
 
             <!-- CTA Button -->
-            <div class="hidden md:block">
+            <div class="hidden md:flex items-center gap-3 ml-6">
                 <% if (user) { %>
-                    <a href="/logout"
-                        class="px-5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 transition shadow-lg">
-                        Logout
-                    </a>
+                    <!-- User Avatar & Dropdown -->
+                    <div class="flex items-center gap-3">
+                        <a href="/profile"
+                            class="flex items-center gap-2 text-slate-600 hover:text-slate-800 transition">
+                            <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-slate-200">
+                                <img src="<%= user.profilepic ? (user.profilepic.startsWith('http') ? user.profilepic : '/images/uploads/' + user.profilepic) : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || user.username || 'User') + '&background=e2e8f0&color=475569&size=32' %>"
+                                    class="w-full h-full object-cover" alt="">
+                            </div>
+                            <span class="text-sm font-medium">
+                                <%= user.name || user.username %>
+                            </span>
+                        </a>
+                        <a href="/logout"
+                            class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium hover:bg-slate-200 transition">
+                            Logout
+                        </a>
+                    </div>
                     <% } else { %>
                         <a href="/login"
-                            class="px-5 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">
+                            class="px-5 py-2.5 rounded-full bg-[#1e1e1e] text-white text-sm font-medium hover:bg-slate-800 transition shadow-sm">
                             Get Started
                         </a>
                         <% } %>
             </div>
 
             <!-- Mobile Menu Button -->
-            <div class="md:hidden flex items-center">
-                <button class="text-slate-600 hover:text-indigo-600 focus:outline-none">
-                    <i class="ri-menu-4-line text-2xl"></i>
+            <div class="md:hidden flex items-center gap-3">
+                <button class="text-slate-600 hover:text-slate-800 focus:outline-none" id="mobile-menu-btn">
+                    <i class="ri-menu-3-line text-2xl"></i>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="md:hidden hidden bg-white border-t border-slate-100" id="mobile-menu">
+        <div class="px-4 py-4 space-y-3">
+            <!-- Mobile Search -->
+            <div class="relative">
+                <input type="text" placeholder="Search..."
+                    class="w-full bg-slate-50 border border-slate-200 rounded-full px-5 py-2.5 text-sm placeholder-slate-400 focus:outline-none focus:border-slate-300 transition">
+                <button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                    <i class="ri-search-line"></i>
+                </button>
+            </div>
+
+            <a href="/" class="block py-2 text-slate-600 text-sm font-medium hover:text-slate-800">Home</a>
+            <a href="/about" class="block py-2 text-slate-600 text-sm font-medium hover:text-slate-800">About</a>
+            <a href="/profile" class="block py-2 text-slate-600 text-sm font-medium hover:text-slate-800">Profile</a>
+
+            <div class="pt-3 border-t border-slate-100">
+                <% if (user) { %>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-slate-200">
+                            <img src="<%= user.profilepic ? (user.profilepic.startsWith('http') ? user.profilepic : '/images/uploads/' + user.profilepic) : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || user.username || 'User') + '&background=e2e8f0&color=475569&size=40' %>"
+                                class="w-full h-full object-cover" alt="">
+                        </div>
+                        <div>
+                            <div class="text-sm font-medium text-slate-800">
+                                <%= user.name || user.username %>
+                            </div>
+                            <div class="text-xs text-slate-500">@<%= user.username %>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/logout"
+                        class="block w-full text-center py-2.5 rounded-full bg-slate-100 text-slate-700 text-sm font-medium hover:bg-slate-200 transition">
+                        Logout
+                    </a>
+                    <% } else { %>
+                        <a href="/login"
+                            class="block w-full text-center py-2.5 rounded-full bg-[#1e1e1e] text-white text-sm font-medium hover:bg-slate-800 transition">
+                            Get Started
+                        </a>
+                        <% } %>
             </div>
         </div>
     </div>
 </nav>
 
 <!-- Spacer to prevent content from hiding behind fixed nav -->
-<div class="h-20"></div>
+<div class="h-16"></div>
+
+<script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.className = 'ri-menu-3-line text-2xl';
+            } else {
+                icon.className = 'ri-close-line text-2xl';
+            }
+        });
+    }
+</script>

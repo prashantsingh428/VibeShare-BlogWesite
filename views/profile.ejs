@@ -107,7 +107,7 @@
                     <!-- Profile Image -->
                     <div class="relative group">
                         <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-slate-100 shadow-lg">
-                            <img src="<%= (user.profilepic && user.profilepic.startsWith('http')) ? user.profilepic : '/images/uploads/' + (user.profilepic || 'default.png') %>"
+                            <img src="<%= user.profilepic ? (user.profilepic.startsWith('http') ? user.profilepic : '/images/uploads/' + user.profilepic) : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || user.username || 'User') + '&background=e2e8f0&color=475569&size=128' %>"
                                 class="w-full h-full object-cover" alt="Profile">
                         </div>
                         <% if(user.username==='prashant' ) { %>
@@ -255,13 +255,13 @@
                                         <div class="flex items-center gap-3">
                                             <div
                                                 class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-semibold text-sm overflow-hidden">
-                                                <% if (user.profilepic && user.profilepic !=='default.jpg' ) { %>
+                                                <% if (user.profilepic) { %>
                                                     <img src="<%= user.profilepic.startsWith('http') ? user.profilepic : '/images/uploads/' + user.profilepic %>"
                                                         class="w-full h-full object-cover" alt="">
                                                     <% } else { %>
-                                                        <%= (user.name || user.username || 'U' ).charAt(0).toUpperCase()
-                                                            %>
-                                                            <% } %>
+                                                        <img src="https://ui-avatars.com/api/?name=<%= encodeURIComponent(user.name || user.username || 'User') %>&background=e2e8f0&color=475569&size=40"
+                                                            class="w-full h-full object-cover" alt="">
+                                                        <% } %>
                                             </div>
                                             <div>
                                                 <h4 class="font-medium text-slate-800 text-sm">

@@ -3,216 +3,509 @@
 
 <head>
     <%- include('./partials/head') %>
+        <style>
+            :root {
+                --primary: #4a5d4a;
+                --primary-light: #6b7f6b;
+                --accent: #c9b99a;
+                --accent-light: #e8dcc8;
+                --dark: #1e1e1e;
+                --light: #f5f3ef;
+                --cream: #faf8f5;
+            }
+
+            body {
+                background-color: var(--cream);
+                overflow-x: hidden;
+            }
+
+            .hero-gradient {
+                background: linear-gradient(135deg, var(--accent-light) 0%, var(--cream) 50%, #e8e4dc 100%);
+            }
+
+            .btn-primary {
+                background: var(--dark);
+                color: white;
+                padding: 14px 28px;
+                border-radius: 30px;
+                font-weight: 500;
+                transition: all 0.3s;
+            }
+
+            .btn-primary:hover {
+                background: #333;
+                transform: translateY(-2px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            }
+
+            .btn-outline {
+                background: transparent;
+                border: 1px solid var(--dark);
+                color: var(--dark);
+                padding: 14px 28px;
+                border-radius: 30px;
+                font-weight: 500;
+                transition: all 0.3s;
+            }
+
+            .btn-outline:hover {
+                background: var(--dark);
+                color: white;
+            }
+
+            .feature-card {
+                background: white;
+                border-radius: 16px;
+                padding: 32px;
+                transition: all 0.3s;
+                border: 1px solid #eee;
+            }
+
+            .feature-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            }
+
+            .dark-section {
+                background: #3d3d3d;
+                border-radius: 24px;
+            }
+
+            .community-avatar {
+                width: 80px;
+                height: 80px;
+                border-radius: 16px;
+                object-fit: cover;
+                transition: all 0.3s;
+            }
+
+            .community-avatar:hover {
+                transform: scale(1.1);
+            }
+
+            .testimonial-card {
+                background: white;
+                border-radius: 16px;
+                padding: 24px;
+                border: 1px solid #eee;
+            }
+
+            .nav-tabs {
+                display: flex;
+                gap: 8px;
+                background: #f0ede8;
+                padding: 6px;
+                border-radius: 30px;
+            }
+
+            .nav-tab {
+                padding: 10px 20px;
+                border-radius: 25px;
+                font-size: 14px;
+                font-weight: 500;
+                color: #666;
+                transition: all 0.3s;
+                cursor: pointer;
+            }
+
+            .nav-tab:hover,
+            .nav-tab.active {
+                background: white;
+                color: var(--dark);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            }
+
+            .blob-shape {
+                position: absolute;
+                border-radius: 50%;
+                filter: blur(60px);
+                opacity: 0.5;
+                z-index: 0;
+            }
+
+            .floating {
+                animation: float 6s ease-in-out infinite;
+            }
+
+            @keyframes float {
+
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-20px);
+                }
+            }
+
+            .slide-up {
+                animation: slideUp 0.8s ease-out forwards;
+                opacity: 0;
+            }
+
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .delay-1 {
+                animation-delay: 0.2s;
+            }
+
+            .delay-2 {
+                animation-delay: 0.4s;
+            }
+
+            .delay-3 {
+                animation-delay: 0.6s;
+            }
+        </style>
 </head>
 
-<body class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen flex flex-col text-slate-800">
+<body class="min-h-screen flex flex-col text-slate-800">
 
     <%- include('./partials/navbar') %>
 
-        <main class="flex-grow">
+        <!-- ================= HERO SECTION ================= -->
+        <section class="hero-gradient relative overflow-hidden py-16 lg:py-24">
+            <!-- Decorative blobs -->
+            <div class="blob-shape w-96 h-96 bg-[#c9b99a]/30 top-0 -left-48"></div>
+            <div class="blob-shape w-64 h-64 bg-[#4a5d4a]/20 bottom-0 right-20"></div>
 
-            <!-- ================= HERO SECTION ================= -->
-            <section class="max-w-7xl mx-auto px-6 py-12 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
 
-                <!-- Left: Content -->
-                <div class="space-y-8 text-center lg:text-left">
-                    <div
-                        class="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm border border-white/50 px-4 py-2 rounded-full text-sm font-semibold text-indigo-600 shadow-sm animate-pulse">
-                        <span class="w-2 h-2 bg-indigo-500 rounded-full"></span>
-                        <span>New V2.0 is Live</span>
+                    <!-- Left Content -->
+                    <div class="slide-up">
+                        <div
+                            class="inline-flex items-center gap-2 bg-white/60 backdrop-blur px-4 py-2 rounded-full text-sm text-slate-600 mb-6">
+                            <i class="ri-sparkling-fill text-amber-500"></i>
+                            <span>Connect. Share. Inspire.</span>
+                        </div>
+
+                        <h1 class="text-4xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
+                            Share Your <br>
+                            <span class="text-[#4a5d4a]">Stories</span> With <br>
+                            The World
+                        </h1>
+
+                        <p class="text-lg text-slate-600 mb-8 max-w-md">
+                            Join a community of creators and storytellers. Express yourself through beautiful posts and
+                            connect with like-minded people.
+                        </p>
+
+                        <div class="flex flex-wrap items-center gap-4">
+                            <a href="/login" class="btn-primary flex items-center gap-2">
+                                <span>Start Sharing Today</span>
+                                <i class="ri-arrow-right-line"></i>
+                            </a>
+                            <a href="/about" class="btn-outline flex items-center gap-2">
+                                <i class="ri-play-circle-line"></i>
+                                <span>Learn More</span>
+                            </a>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="flex items-center gap-8 mt-12">
+                            <div>
+                                <div class="text-3xl font-bold text-slate-900">10K+</div>
+                                <div class="text-sm text-slate-500">Active Users</div>
+                            </div>
+                            <div class="w-px h-12 bg-slate-300"></div>
+                            <div>
+                                <div class="text-3xl font-bold text-slate-900">50K+</div>
+                                <div class="text-sm text-slate-500">Posts Shared</div>
+                            </div>
+                            <div class="w-px h-12 bg-slate-300"></div>
+                            <div>
+                                <div class="text-3xl font-bold text-slate-900">99%</div>
+                                <div class="text-sm text-slate-500">Happy Creators</div>
+                            </div>
+                        </div>
                     </div>
 
-                    <h1 class="text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]">
-                        Share your <br>
-                        <span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">authentic
-                            vibe.</span>
-                    </h1>
+                    <!-- Right Image -->
+                    <div class="relative slide-up delay-1 hidden lg:block">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=700&fit=crop"
+                                alt="Happy creator" class="rounded-3xl shadow-2xl floating">
 
-                    <p class="text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                        A minimalist social platform built for real connections. No algorithms, no noise—just you and
-                        your thoughts sharing space with the world.
+                            <!-- Floating Card 1 -->
+                            <div class="absolute -left-8 top-1/4 bg-white rounded-2xl p-4 shadow-xl">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                                        <i class="ri-check-line text-green-600"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold">Post Published!</div>
+                                        <div class="text-xs text-slate-500">Shared with 1.2K followers</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Floating Card 2 -->
+                            <div class="absolute -right-4 bottom-1/4 bg-white rounded-2xl p-4 shadow-xl">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                                        <i class="ri-heart-3-fill text-red-500"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold">+248 Likes</div>
+                                        <div class="text-xs text-slate-500">Your post is trending!</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= NAVIGATION TABS ================= -->
+        <section class="py-8 bg-white border-b">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div class="nav-tabs">
+                        <span class="nav-tab active">Features</span>
+                        <span class="nav-tab">Community</span>
+                        <span class="nav-tab">Stories</span>
+                        <span class="nav-tab">Resources</span>
+                    </div>
+                    <a href="/login" class="text-sm text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        Explore more features <i class="ri-arrow-right-line"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= DARK BANNER ================= -->
+        <section class="py-16">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="dark-section p-12 lg:p-16 text-center text-white relative overflow-hidden">
+                    <div class="blob-shape w-48 h-48 bg-[#4a5d4a] -top-24 -left-24"></div>
+                    <div class="blob-shape w-32 h-32 bg-[#c9b99a] -bottom-16 -right-16"></div>
+
+                    <h2 class="text-3xl lg:text-5xl font-bold mb-6 relative z-10">
+                        Let's grow your<br>community together!
+                    </h2>
+                    <p class="text-white/70 text-lg mb-8 max-w-lg mx-auto relative z-10">
+                        Create, connect, and inspire with VibeShare. The platform designed for modern storytellers.
                     </p>
+                    <a href="/login"
+                        class="inline-flex items-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-full font-medium hover:bg-slate-100 transition relative z-10">
+                        <i class="ri-rocket-line"></i>
+                        Get Started Free
+                    </a>
+                </div>
+            </div>
+        </section>
 
-                    <div class="flex items-center justify-center lg:justify-start gap-4 pt-4">
-                        <a href="<%= user ? '/profile' : '#register' %>"
-                            class="px-8 py-4 rounded-xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                            <%= user ? 'Go to Profile' : 'Start Sharing' %>
-                        </a>
-                        <a href="/about"
-                            class="px-8 py-4 rounded-xl bg-white text-slate-700 font-semibold border border-slate-200 hover:bg-slate-50 transition shadow-sm">
-                            Learn More
-                        </a>
+        <!-- ================= FEATURES ================= -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-3 gap-8">
+
+                    <!-- Feature 1 -->
+                    <div class="feature-card slide-up">
+                        <div class="w-14 h-14 rounded-2xl bg-amber-100 flex items-center justify-center mb-6">
+                            <i class="ri-quill-pen-line text-2xl text-amber-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Create Posts</h3>
+                        <p class="text-slate-600">
+                            Share your thoughts with beautiful rich media posts. Upload images, write stories, and
+                            express yourself freely.
+                        </p>
                     </div>
 
-                    <!-- Social Proof -->
-                    <div class="pt-8 flex items-center justify-center lg:justify-start gap-4">
-                        <div class="flex -space-x-4">
-                            <img class="w-10 h-10 rounded-full border-2 border-white"
-                                src="https://i.pravatar.cc/100?img=1" alt="">
-                            <img class="w-10 h-10 rounded-full border-2 border-white"
-                                src="https://i.pravatar.cc/100?img=2" alt="">
-                            <img class="w-10 h-10 rounded-full border-2 border-white"
-                                src="https://i.pravatar.cc/100?img=3" alt="">
-                            <img class="w-10 h-10 rounded-full border-2 border-white"
-                                src="https://i.pravatar.cc/100?img=4" alt="">
+                    <!-- Feature 2 -->
+                    <div class="feature-card slide-up delay-1">
+                        <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center mb-6">
+                            <i class="ri-group-line text-2xl text-green-600"></i>
                         </div>
-                        <div class="text-sm">
-                            <span class="font-bold text-slate-900">1,000+</span> users joined
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Build Community</h3>
+                        <p class="text-slate-600">
+                            Connect with creators who share your passion. Follow, like, and engage with content that
+                            inspires you.
+                        </p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-card slide-up delay-2">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-100 flex items-center justify-center mb-6">
+                            <i class="ri-line-chart-line text-2xl text-purple-600"></i>
                         </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Track Growth</h3>
+                        <p class="text-slate-600">
+                            Watch your profile grow with detailed insights. See who loves your content and what
+                            resonates most.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= COMMUNITY SECTION ================= -->
+        <section class="py-16">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center justify-between mb-12">
+                    <div>
+                        <h2 class="text-3xl font-bold text-slate-900 mb-2">Community</h2>
+                        <p class="text-slate-600">Join thousands of creators sharing their stories</p>
+                    </div>
+                    <div class="flex items-center gap-4 mt-4 md:mt-0">
+                        <span class="text-sm text-slate-500">Sort by:</span>
+                        <select class="bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm">
+                            <option>Trending now</option>
+                            <option>Most liked</option>
+                            <option>Newest</option>
+                        </select>
                     </div>
                 </div>
 
-                <!-- Right: Registration Form OR Welcome Card -->
-                <div id="register" class="w-full max-w-md mx-auto">
-                    <div class="glass-card p-8 rounded-3xl relative overflow-hidden text-center">
-
-                        <!-- Decorative blob -->
-                        <div
-                            class="absolute -top-10 -right-10 w-32 h-32 bg-purple-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50">
-                        </div>
-                        <div
-                            class="absolute -bottom-10 -left-10 w-32 h-32 bg-indigo-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50">
-                        </div>
-
-                        <% if (user) { %>
-                            <!-- LOGGED IN STATE -->
-                            <div class="relative z-10 py-10">
-                                <div
-                                    class="w-24 h-24 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-4xl font-bold shadow-xl mx-auto mb-6">
-                                    <%= user.username.charAt(0).toUpperCase() %>
-                                </div>
-                                <h2 class="text-3xl font-bold text-slate-800 mb-2">Welcome Back!</h2>
-                                <p class="text-slate-500 mb-8 max-w-xs mx-auto">
-                                    Ready to share your next big idea with the world?
-                                </p>
-
-                                <div class="flex flex-col gap-3">
-                                    <a href="/profile"
-                                        class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:shadow-lg hover:from-indigo-700 hover:to-purple-700 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2">
-                                        <span>Go to Your Profile</span>
-                                        <i class="ri-arrow-right-line"></i>
-                                    </a>
-                                    <a href="/logout"
-                                        class="w-full py-3.5 rounded-xl border-2 border-slate-200 text-slate-600 font-bold hover:bg-slate-50 hover:text-slate-800 transition-all">
-                                        Log Out
-                                    </a>
-                                </div>
-                            </div>
-                            <% } else { %>
-                                <!-- LOGGED OUT STATE (Register Form) -->
-                                <div class="relative z-10 text-center mb-8">
-                                    <h2 class="text-2xl font-bold text-slate-800">Create Account 🚀</h2>
-                                    <p class="text-sm text-slate-500 mt-2">Join us and verify your vibe today.</p>
-                                </div>
-
-                                <form action="/register" method="post" class="space-y-5 relative z-10">
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <label
-                                                class="block text-xs font-semibold text-slate-500 uppercase mb-1 ml-1 text-left">Full
-                                                Name</label>
-                                            <input type="text" name="name" placeholder="John Doe" required
-                                                class="w-full px-4 py-3 rounded-xl bg-white/50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
-                                        </div>
-                                        <div>
-                                            <label
-                                                class="block text-xs font-semibold text-slate-500 uppercase mb-1 ml-1 text-left">Age</label>
-                                            <input type="number" name="age" min="13" placeholder="21" required
-                                                class="w-full px-4 py-3 rounded-xl bg-white/50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label
-                                            class="block text-xs font-semibold text-slate-500 uppercase mb-1 ml-1 text-left">Username</label>
-                                        <input type="text" name="username" placeholder="john_doe" required
-                                            class="w-full px-4 py-3 rounded-xl bg-white/50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
-                                    </div>
-
-                                    <div>
-                                        <label
-                                            class="block text-xs font-semibold text-slate-500 uppercase mb-1 ml-1 text-left">Email</label>
-                                        <input type="email" name="email" placeholder="you@example.com" required
-                                            class="w-full px-4 py-3 rounded-xl bg-white/50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
-                                    </div>
-
-                                    <div>
-                                        <label
-                                            class="block text-xs font-semibold text-slate-500 uppercase mb-1 ml-1 text-left">Password</label>
-                                        <input type="password" name="password" placeholder="••••••••" required
-                                            class="w-full px-4 py-3 rounded-xl bg-white/50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
-                                    </div>
-
-                                    <button type="submit"
-                                        class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:shadow-lg hover:from-indigo-700 hover:to-purple-700 transform hover:-translate-y-0.5 transition-all">
-                                        Create Account
-                                    </button>
-                                </form>
-
-                                <div class="mt-6 text-center text-sm text-slate-500 relative z-10">
-                                    Already have an account? <a href="/login"
-                                        class="text-indigo-600 hover:text-indigo-800 font-semibold underline decoration-2 decoration-indigo-200 hover:decoration-indigo-600 transition-all">Log
-                                        In</a>
-                                </div>
-                                <% } %>
-
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop"
+                            class="community-avatar mx-auto mb-3">
+                        <p class="text-sm text-slate-600">Storyteller & creator sharing life adventures</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop"
+                            class="community-avatar mx-auto mb-3">
+                        <p class="text-sm text-slate-600">Designer with eye for beautiful moments</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop"
+                            class="community-avatar mx-auto mb-3">
+                        <p class="text-sm text-slate-600">Thanks for the kind support from community</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop"
+                            class="community-avatar mx-auto mb-3">
+                        <p class="text-sm text-slate-600">Creating content that inspires others daily</p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- ================= FEATURES SECTION ================= -->
-            <section class="bg-white/50 backdrop-blur-sm py-20 border-t border-white/50">
-                <div class="max-w-7xl mx-auto px-6">
-                    <div class="text-center max-w-2xl mx-auto mb-16">
-                        <h2 class="text-3xl font-bold text-slate-900 mb-4">Everything you need, nothing you don't.</h2>
-                        <p class="text-slate-600">We stripped away the clutter to focus on the core experience of
-                            sharing.</p>
-                    </div>
+        <!-- ================= TESTIMONIALS ================= -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="space-y-6">
 
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <!-- Feature 1 -->
-                        <div
-                            class="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition">
-                            <div
-                                class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 text-2xl mb-6">
-                                <i class="ri-shield-check-line"></i>
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card flex flex-col md:flex-row gap-6">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=120&h=120&fit=crop"
+                            class="w-20 h-20 rounded-2xl object-cover">
+                        <div class="flex-grow">
+                            <div class="flex items-start justify-between mb-3">
+                                <div>
+                                    <h4 class="font-bold text-slate-900">Scarlett Summers</h4>
+                                    <p class="text-sm text-slate-500">Digital Creator • 5.2k followers</p>
+                                </div>
+                                <div class="flex items-center gap-1 text-amber-400">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
                             </div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-3">Privacy First</h3>
-                            <p class="text-slate-600">Your data belongs to you. We don't track your cross-site activity
-                                or sell your preferences.</p>
-                        </div>
-
-                        <!-- Feature 2 -->
-                        <div
-                            class="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition">
-                            <div
-                                class="w-12 h-12 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600 text-2xl mb-6">
-                                <i class="ri-flashlight-line"></i>
+                            <p class="text-slate-600">
+                                "VibeShare has completely transformed how I connect with my audience. The clean
+                                interface and
+                                engaging features make sharing my creative journey an absolute pleasure. Highly
+                                recommend!"
+                            </p>
+                            <div class="flex items-center gap-4 mt-4 text-sm text-slate-500">
+                                <span><i class="ri-calendar-line mr-1"></i> 2 days ago</span>
+                                <span><i class="ri-heart-3-line mr-1"></i> 128 likes</span>
                             </div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-3">Blazing Fast</h3>
-                            <p class="text-slate-600">Built on modern tech stacks for instant load times and snappy
-                                interactions.</p>
-                        </div>
-
-                        <!-- Feature 3 -->
-                        <div
-                            class="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition">
-                            <div
-                                class="w-12 h-12 rounded-2xl bg-pink-100 flex items-center justify-center text-pink-600 text-2xl mb-6">
-                                <i class="ri-palette-line"></i>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-3">Beautiful Design</h3>
-                            <p class="text-slate-600">A clean, glassmorphism-inspired interface that puts your content
-                                center stage.</p>
                         </div>
                     </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card flex flex-col md:flex-row gap-6">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=120&h=120&fit=crop"
+                            class="w-20 h-20 rounded-2xl object-cover">
+                        <div class="flex-grow">
+                            <div class="flex items-start justify-between mb-3">
+                                <div>
+                                    <h4 class="font-bold text-slate-900">Marcus Johnson</h4>
+                                    <p class="text-sm text-slate-500">Travel Blogger • 12.8k followers</p>
+                                </div>
+                                <div class="flex items-center gap-1 text-amber-400">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                </div>
+                            </div>
+                            <p class="text-slate-600">
+                                "Finally, a platform that gets creators! The ability to share multiple photos in one
+                                post and
+                                track engagement has helped me grow my travel blog exponentially. Amazing experience!"
+                            </p>
+                            <div class="flex items-center gap-4 mt-4 text-sm text-slate-500">
+                                <span><i class="ri-calendar-line mr-1"></i> 5 days ago</span>
+                                <span><i class="ri-heart-3-line mr-1"></i> 256 likes</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </section>
+            </div>
+        </section>
 
-        </main>
+        <!-- ================= CTA SECTION ================= -->
+        <section class="py-20">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+                    Ready to share your story?
+                </h2>
+                <p class="text-lg text-slate-600 mb-8">
+                    Join thousands of creators who are already sharing their passion with the world.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="/login" class="btn-primary flex items-center gap-2">
+                        <span>Create Free Account</span>
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
+                    <a href="/about" class="btn-outline">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </section>
 
         <%- include('./partials/footer') %>
+
+            <script>
+                // Animate elements on scroll
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('.slide-up').forEach(el => observer.observe(el));
+            </script>
 
 </body>
 

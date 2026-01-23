@@ -3,109 +3,223 @@
 
 <head>
     <%- include('./partials/head') %>
+        <style>
+            :root {
+                --primary: #4a5d4a;
+                --primary-light: #6b7f6b;
+                --accent: #c9b99a;
+                --accent-light: #e8dcc8;
+                --dark: #1e1e1e;
+                --light: #f5f3ef;
+                --cream: #faf8f5;
+            }
+
+            body {
+                background: linear-gradient(135deg, var(--accent-light) 0%, var(--cream) 50%, #e8e4dc 100%);
+            }
+
+            .login-card {
+                background: white;
+                border-radius: 24px;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            }
+
+            .form-input {
+                width: 100%;
+                padding: 14px 16px 14px 48px;
+                border-radius: 12px;
+                background: #f8f7f4;
+                border: 1px solid #e8e6e1;
+                color: #333;
+                font-size: 15px;
+                transition: all 0.3s;
+            }
+
+            .form-input:focus {
+                outline: none;
+                border-color: var(--primary);
+                background: white;
+                box-shadow: 0 0 0 4px rgba(74, 93, 74, 0.1);
+            }
+
+            .form-input::placeholder {
+                color: #999;
+            }
+
+            .btn-primary {
+                background: var(--dark);
+                color: white;
+                padding: 14px 28px;
+                border-radius: 30px;
+                font-weight: 500;
+                transition: all 0.3s;
+                width: 100%;
+            }
+
+            .btn-primary:hover {
+                background: #333;
+                transform: translateY(-2px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            }
+
+            .blob-shape {
+                position: absolute;
+                border-radius: 50%;
+                filter: blur(80px);
+                opacity: 0.4;
+                z-index: 0;
+            }
+
+            .input-icon {
+                position: absolute;
+                left: 16px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #999;
+            }
+
+            .divider {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                color: #999;
+                font-size: 13px;
+            }
+
+            .divider::before,
+            .divider::after {
+                content: '';
+                flex: 1;
+                height: 1px;
+                background: #e8e6e1;
+            }
+
+            .social-btn {
+                flex: 1;
+                padding: 12px;
+                border-radius: 12px;
+                border: 1px solid #e8e6e1;
+                background: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                font-size: 14px;
+                font-weight: 500;
+                color: #555;
+                transition: all 0.3s;
+            }
+
+            .social-btn:hover {
+                background: #f8f7f4;
+                border-color: #ddd;
+            }
+        </style>
 </head>
 
-<body
-    class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen flex flex-col text-slate-800 relative overflow-hidden">
+<body class="min-h-screen flex flex-col text-slate-800 relative overflow-hidden">
 
     <%- include('./partials/navbar') %>
 
-        <div class="flex-grow flex flex-col items-center justify-start pt-32 w-full px-4 pb-20">
+        <!-- Decorative Blobs -->
+        <div class="blob-shape w-96 h-96 bg-[#c9b99a]/50 -top-48 -left-48"></div>
+        <div class="blob-shape w-80 h-80 bg-[#4a5d4a]/30 -bottom-40 -right-40"></div>
+        <div class="blob-shape w-64 h-64 bg-[#e8dcc8]/60 top-1/2 right-1/4"></div>
 
-            <!-- Decorative Background Blobs -->
-            <div
-                class="absolute top-1/2 left-1/4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob">
-            </div>
-            <div
-                class="absolute top-1/2 right-1/4 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000">
-            </div>
-            <div
-                class="absolute bottom-1/4 left-1/2 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000">
-            </div>
+        <div class="flex-grow flex items-center justify-center w-full px-4 py-16 relative z-10">
 
-            <!-- Login Card -->
-            <div
-                class="w-full max-w-md glass-card rounded-3xl shadow-2xl p-8 relative z-10 transition-all duration-300 hover:shadow-3xl">
+            <div class="w-full max-w-md">
 
-                <!-- Header -->
-                <div class="mb-8 text-center">
-                    <div
-                        class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-3xl font-bold shadow-lg mx-auto mb-4">
-                        <i class="ri-pulse-line"></i>
+                <!-- Login Card -->
+                <div class="login-card p-8 md:p-10">
+
+                    <!-- Header -->
+                    <div class="text-center mb-8">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-[#4a5d4a] flex items-center justify-center text-white mx-auto mb-4">
+                            <i class="ri-leaf-line text-2xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">Welcome back</h2>
+                        <p class="text-slate-500 mt-2 text-sm">Enter your credentials to access your account</p>
                     </div>
-                    <h2 class="text-3xl font-bold text-slate-800">
-                        Welcome Back 👋
-                    </h2>
-                    <p class="text-slate-500 mt-2">
-                        Enter your credentials to access your account.
-                    </p>
+
+                    <!-- Error Alert -->
+                    <% if (typeof error !=='undefined' && error) { %>
+                        <div
+                            class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl mb-6 flex items-center gap-3 text-sm">
+                            <i class="ri-error-warning-line text-lg"></i>
+                            <span>
+                                <%= error %>
+                            </span>
+                        </div>
+                        <% } %>
+
+                            <!-- Login Form -->
+                            <form action="/login" method="post" class="space-y-5">
+
+                                <!-- Email -->
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                                    <div class="relative">
+                                        <i class="ri-mail-line input-icon"></i>
+                                        <input type="email" name="email" placeholder="you@example.com" required
+                                            class="form-input">
+                                    </div>
+                                </div>
+
+                                <!-- Password -->
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="block text-sm font-medium text-slate-700">Password</label>
+                                        <a href="#" class="text-sm text-[#4a5d4a] hover:underline font-medium">Forgot
+                                            password?</a>
+                                    </div>
+                                    <div class="relative">
+                                        <i class="ri-lock-line input-icon"></i>
+                                        <input type="password" name="password" placeholder="••••••••" required
+                                            class="form-input">
+                                    </div>
+                                </div>
+
+                                <!-- Remember Me -->
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" id="remember"
+                                        class="w-4 h-4 rounded border-slate-300 text-[#4a5d4a] focus:ring-[#4a5d4a]">
+                                    <label for="remember" class="text-sm text-slate-600">Remember me for 30 days</label>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <button type="submit" class="btn-primary flex items-center justify-center gap-2">
+                                    <span>Sign In</span>
+                                    <i class="ri-arrow-right-line"></i>
+                                </button>
+
+                            </form>
+
+                            <!-- Register Link -->
+                            <div class="mt-8 text-center text-sm text-slate-500">
+                                Don't have an account?
+                                <a href="/" class="text-[#4a5d4a] font-semibold hover:underline ml-1">Create account</a>
+                            </div>
+
                 </div>
 
-                <!-- Error Alert -->
-                <% if (typeof error !=='undefined' && error) { %>
-                    <div
-                        class="bg-red-500/10 border border-red-500/50 text-red-600 px-4 py-3 rounded-xl mb-6 flex items-center gap-2 animate-pulse">
-                        <i class="ri-error-warning-line text-xl"></i>
-                        <span class="font-medium text-sm">
-                            <%= error %>
-                        </span>
+                <!-- Trust Badges -->
+                <div class="flex items-center justify-center gap-6 mt-8 text-slate-400 text-sm">
+                    <div class="flex items-center gap-2">
+                        <i class="ri-shield-check-line"></i>
+                        <span>Secure login</span>
                     </div>
-                    <% } %>
-
-                        <!-- Form -->
-                        <form action="/login" method="post" class="space-y-6">
-
-                            <!-- Email -->
-                            <div>
-                                <label
-                                    class="block text-xs font-semibold text-slate-500 uppercase mb-1 ml-1">Email</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                        <i class="ri-mail-line text-slate-400"></i>
-                                    </div>
-                                    <input type="email" name="email" placeholder="you@example.com" required
-                                        class="w-full pl-11 pr-4 py-3 rounded-xl bg-white/50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition text-slate-700">
-                                </div>
-                            </div>
-
-                            <!-- Password -->
-                            <div>
-                                <div class="flex items-center justify-between mb-1 ml-1">
-                                    <label class="block text-xs font-semibold text-slate-500 uppercase">Password</label>
-                                    <a href="#"
-                                        class="text-xs text-indigo-600 hover:text-indigo-800 font-medium hover:underline">Forgot?</a>
-                                </div>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                        <i class="ri-lock-line text-slate-400"></i>
-                                    </div>
-                                    <input type="password" name="password" placeholder="••••••••" required
-                                        class="w-full pl-11 pr-4 py-3 rounded-xl bg-white/50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition text-slate-700">
-                                </div>
-                            </div>
-
-                            <!-- Button -->
-                            <button type="submit"
-                                class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:shadow-lg hover:from-indigo-700 hover:to-purple-700 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2">
-                                <span>Log In</span>
-                                <i class="ri-arrow-right-line"></i>
-                            </button>
-
-                        </form>
-
-                        <div class="mt-8 pt-6 border-t border-slate-200/60 text-center text-sm text-slate-500">
-                            Don’t have an account?
-                            <a href="/#register"
-                                class="text-indigo-600 hover:text-indigo-800 font-bold hover:underline transition">
-                                Create one
-                            </a>
-                        </div>
+                    <div class="flex items-center gap-2">
+                        <i class="ri-lock-line"></i>
+                        <span>256-bit encryption</span>
+                    </div>
+                </div>
 
             </div>
+
         </div>
 
 </body>
-
-</html>
 
 </html>
