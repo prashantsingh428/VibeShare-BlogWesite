@@ -31,19 +31,32 @@ if (!process.env.MONGO_URI) {
 }
 
 const PORT = process.env.PORT || 3000;
+const isVercel = process.env.VERCEL || process.env.VERCEL_ENV;
 
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URI);
         console.log("Connected to MongoDB");
-        // Only start server after DB connection
-        app.listen(PORT, () => {
-            console.log(`Live server running on ${PORT} 🍌`);
-        });
-    })
-    .catch((err) => {
-        console.error("Error connecting to MongoDB:", err);
-        process.exit(1); // Exit if DB fails
+    } catch (err) {
+        console.error("Error connecting to MongoDB:", err.message);
+        if (!isVercel) {
+            console.log("Falling back to In-Memory Database...");
+            const { MongoMemoryServer } = require("mongodb-memory-server");
+            const mongoServer = await MongoMemoryServer.create();
+            const inMemoryUri = mongoServer.getUri();
+            await mongoose.connect(inMemoryUri);
+            console.log("In-Memory MongoDB Connected Successfully!");
+        }
+    }
+};
+
+connectDB();
+
+if (!isVercel) {
+    app.listen(PORT, () => {
+        console.log(`Live server running on ${PORT} 🍌`);
     });
+}
 app.use(async (req, res, next) => {
     const token = req.cookies?.token;
     if (token) {
@@ -355,5 +368,4 @@ function isLoggedIn(req, res, next) {
     }
 }
 
-
-
+module.exports = app;
